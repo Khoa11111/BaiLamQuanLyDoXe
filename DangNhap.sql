@@ -21,7 +21,7 @@ create table NhanVien(
 	ngaysinh varchar(50) not null,
 	gioitinh varchar(3) not null,
 	loaiNV varchar(100) not null,
-	diachi varchar(100) not null,
+	diachi varchar(100)  null,
 	SDT varchar(11) not null,
 	makhauNV varchar(100) not null
 )
@@ -41,7 +41,7 @@ create table QuanLyVe_va_Xe(
 	tenxe varchar(100) null,
 	mauxe varchar(100) null,
 	ngayraben varchar(50) not null,
-	nayvaoben varchar(50) not null
+	nayvaoben varchar(50) null
 )
 go
 
