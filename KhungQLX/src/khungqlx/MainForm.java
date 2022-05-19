@@ -24,6 +24,7 @@ public class MainForm extends javax.swing.JFrame {
     Connection conn = null;
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyDoXe;user=sa;password=12345";
+    
     ResultSet rs;
     int q, i;
     
@@ -35,27 +36,28 @@ public class MainForm extends javax.swing.JFrame {
             Class.forName(driver);
             conn = DriverManager.getConnection(url);
             String sql = "select * from NhanVien";
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            rs = pstm.executeQuery();
+            String Find = txtTimtheomaNV_17.getText();
+            if(Find.length()>0)
+                sql = sql + " where maNV like '%" + Find + "%'";
+            Statement pstm = conn.createStatement();
+            rs = pstm.executeQuery(sql);
             
             ResultSetMetaData stData = rs.getMetaData();
             
             q = stData.getColumnCount();
-            
             DefaultTableModel model = (DefaultTableModel) tableNhanVien_17.getModel();
             model.setRowCount(0);
             
             while(rs.next()){
                 Vector columnData = new Vector();
                 for (i=1; i<=q; i++){
-                    columnData.add(rs.getString("maNV"));
-                    columnData.add(rs.getString("tenNV"));
-                    columnData.add(rs.getString("ngaysinh"));
-                    columnData.add(rs.getString("gioitinh"));
-                    columnData.add(rs.getString("loaiNV"));
-                    columnData.add(rs.getString("diachi"));
-                    columnData.add(rs.getString("SDT"));
-                    columnData.add(rs.getString("makhauNV"));
+                    columnData.add(rs.getString(1));
+                    columnData.add(rs.getString(2));
+                    columnData.add(rs.getString(3));
+                    columnData.add(rs.getString(4));
+                    columnData.add(rs.getString(5));
+                    columnData.add(rs.getString(6));
+                    columnData.add(rs.getString(7));
                 }
                 model.addRow(columnData);
             }
@@ -73,11 +75,8 @@ public class MainForm extends javax.swing.JFrame {
             String sql = "select * from QuanLyVe_va_Xe";
             PreparedStatement pstm = conn.prepareStatement(sql);
             rs = pstm.executeQuery();
-            
             ResultSetMetaData stData = rs.getMetaData();
-            
             q = stData.getColumnCount();
-            
             DefaultTableModel model = (DefaultTableModel) TableBaiDoXe.getModel();
             model.setRowCount(0);
             
@@ -103,6 +102,7 @@ public class MainForm extends javax.swing.JFrame {
     
     public MainForm() {
         initComponents();
+        GetNhanVienTable();
     }
 
     /**
@@ -412,7 +412,7 @@ public class MainForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã NV", "tên NV", "Ngày Sinh", "Giới Tính", "Loại NV", "Địa Chỉ", "SDT", "Mật Khẩu"
+                "Mã NV", "tên NV", "Ngày Sinh", "Giới Tính", "Loại NV", "SDT", "Mật Khẩu"
             }
         ));
         tableNhanVien_17.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1784,8 +1784,10 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void btnTimtheoma_17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimtheoma_17ActionPerformed
-        try {
-            // TODO add your handling code here:
+        
+        GetNhanVienTable();
+        //try {
+            /* TODO add your handling code here:
             Class.forName(driver);
             conn = DriverManager.getConnection(url);
             String sql = "select * from NhanVien where maNV=?";
@@ -1817,7 +1819,7 @@ public class MainForm extends javax.swing.JFrame {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_btnTimtheoma_17ActionPerformed
 
     private void btnThem_17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_17ActionPerformed
@@ -1914,7 +1916,10 @@ public class MainForm extends javax.swing.JFrame {
             // TODO add your handling code here:
             Class.forName(driver);
             conn = DriverManager.getConnection(url);
-            String sql = "select * from QuanLyVe_va_Xe where masove=?";
+            String sql = "select * from QuanLyVe_va_Xe ";
+            String Find_57 = txtTimtheomaNV_17.getText();
+            if (Find_57.replaceAll(" ", "") != "") 
+                  sql = sql + "where masove=?" + Find_57;
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, txtTKtheoVe.getText());
             rs = pstm.executeQuery();
@@ -2037,6 +2042,11 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnThemQuanLyActionPerformed
 
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
