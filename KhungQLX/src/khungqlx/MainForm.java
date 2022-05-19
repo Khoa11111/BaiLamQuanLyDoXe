@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class MainForm extends javax.swing.JFrame {
     Connection conn = null;
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyDoXe;user=sa;password=maths2002";
+    String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyDoXe;user=sa;password=12345";
     ResultSet rs;
     int q, i;
     
