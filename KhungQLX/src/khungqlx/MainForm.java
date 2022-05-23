@@ -1694,7 +1694,7 @@ public class MainForm extends javax.swing.JFrame {
             pstm.setString(1,model.getValueAt(selectedRowIndex, 0).toString());
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(this, "Ban da xoa thanh cong");
-            GetVevaXeTable();
+            data.GetVevaXeTable(TableBaiDoXe);
         } catch (ClassNotFoundException ex){
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -1737,40 +1737,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void btnTimtheoma_17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimtheoma_17ActionPerformed
-        try {
-            // TODO add your handling code here:
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url);
-            String sql = "select * from NhanVien where maNV=?";
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, txtTimtheomaNV_17.getText());
-            rs = pstm.executeQuery();
-            
-            while(rs.next()){
-                String maNV = rs.getString("maNV");
-                String tenNV = rs.getString("tenNV");
-                String ngaysinh = rs.getString("ngaysinh");
-                String gioitinh = rs.getString("gioitinh");
-                String loaiNV = rs.getString("loaiNV");
-                String diachi = rs.getString("diachi");
-                String SDT = rs.getString("SDT");
-                String matkhau = rs.getString("makhauNV");
-                
-                String tbData[] = {maNV,tenNV,ngaysinh,gioitinh,loaiNV,diachi,SDT,matkhau};
-                
-                DefaultTableModel tblmodel = (DefaultTableModel) tableNhanVien_17.getModel();
-                int rowtoremove = tableNhanVien_17.getRowCount();
-                for (int i = rowtoremove - 1; i >= 0; i--){
-                    tblmodel.removeRow(i);
-                }
-                tblmodel.addRow(tbData); 
-            }
-            txtTimtheomaNV_17.setText("");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        data.btnTimtheoma_NV(tableNhanVien_17, txtTimtheomaNV_17);
+        txtTimtheomaNV_17.setText("");
     }//GEN-LAST:event_btnTimtheoma_17ActionPerformed
 
     private void btnThem_17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_17ActionPerformed
@@ -1791,7 +1759,7 @@ public class MainForm extends javax.swing.JFrame {
             pstm.setString(8, txtMatKhau.getText());
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(this, "Ban da them moi thanh cong");
-            GetNhanVienTable();
+            data.GetNhanVienTable(tableNhanVien_17);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -1956,7 +1924,7 @@ public class MainForm extends javax.swing.JFrame {
             pstm.setString(8, txtMaNV.getText());
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(this, "Ban da thay doi thanh cong");
-            GetNhanVienTable();
+            data.GetNhanVienTable(tableNhanVien_17);
         }  catch (ClassNotFoundException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -1982,7 +1950,7 @@ public class MainForm extends javax.swing.JFrame {
             pstm.setString(7, txtNgayVaoBen.getText());
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(this, "Ban da them moi thanh cong");
-            GetVevaXeTable();
+            data.GetVevaXeTable(TableBaiDoXe);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

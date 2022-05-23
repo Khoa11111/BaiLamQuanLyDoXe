@@ -15,6 +15,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import khungqlx.MainForm;
 
@@ -86,6 +87,43 @@ public class All_Select_SQL {
                     columnData.add(rs.getString("mauXe"));
                     columnData.add(rs.getString("ngayRaBai1"));
                     columnData.add(rs.getString("ngayVaoBai1"));
+                }
+                model.addRow(columnData);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void btnTimtheoma_NV(JTable table,JTextField txt){
+        try {
+            String sql = "select NhanVien.maNV,NhanVien.tenNV,NhanVien.ngaysinh,NhanVien.gioitinh,NhanVien.chucVu,DiaChi.QuanHuyen,NhanVien.SDT,TaiKhoan.matKhau" +
+                " from NhanVien,TaiKhoan,DiaChi where NhanVien.tenTK=TaiKhoan.tenTK and NhanVien.maNV=DiaChi.maNV and NhanVien.maNV=?";
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, txt.getText());
+            rs = pstm.executeQuery();
+            
+            ResultSetMetaData stData = rs.getMetaData();
+            
+            q = stData.getColumnCount();
+            
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            int rowtoremove = table.getRowCount();
+            for (int a = rowtoremove - 1; a >= 0; a--){
+                model.removeRow(a);
+            }
+            model.setRowCount(0);
+            while(rs.next()){
+                Vector columnData = new Vector();
+                for (i=1; i<=q; i++){
+                    columnData.add(rs.getString("maNV"));
+                    columnData.add(rs.getString("tenNV"));
+                    columnData.add(rs.getString("ngaysinh"));
+                    columnData.add(rs.getString("gioitinh"));
+                    columnData.add(rs.getString("chucVu"));
+                    columnData.add(rs.getString("QuanHuyen"));
+                    columnData.add(rs.getString("SDT"));
+                    columnData.add(rs.getString("matKhau"));
                 }
                 model.addRow(columnData);
             }
