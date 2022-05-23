@@ -5,6 +5,7 @@
  */
 package khungqlx;
 
+import MyDataBase.All_Select_SQL;
 import java.awt.CardLayout;
 import java.sql.*;
 import java.text.ParseException;
@@ -15,94 +16,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 /**
  *
  * @author admin
  */
 public class MainForm extends javax.swing.JFrame {
+    All_Select_SQL data = new All_Select_SQL();
     Connection conn = null;
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyDoXe;user=sa;password=maths2002";
+    String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyDoXe;user=sa;password=12345";
     ResultSet rs;
     int q, i;
     
     /**
      * Creates new form MainForm
      */
-    public void GetNhanVienTable(){
-        try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url);
-            String sql = "select * from NhanVien";
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            rs = pstm.executeQuery();
-            
-            ResultSetMetaData stData = rs.getMetaData();
-            
-            q = stData.getColumnCount();
-            
-            DefaultTableModel model = (DefaultTableModel) tableNhanVien_17.getModel();
-            model.setRowCount(0);
-            
-            while(rs.next()){
-                Vector columnData = new Vector();
-                for (i=1; i<=q; i++){
-                    columnData.add(rs.getString("maNV"));
-                    columnData.add(rs.getString("tenNV"));
-                    columnData.add(rs.getString("ngaysinh"));
-                    columnData.add(rs.getString("gioitinh"));
-                    columnData.add(rs.getString("loaiNV"));
-                    columnData.add(rs.getString("diachi"));
-                    columnData.add(rs.getString("SDT"));
-                    columnData.add(rs.getString("makhauNV"));
-                }
-                model.addRow(columnData);
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void GetVevaXeTable(){
-        try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url);
-            String sql = "select * from QuanLyVe_va_Xe";
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            rs = pstm.executeQuery();
-            
-            ResultSetMetaData stData = rs.getMetaData();
-            
-            q = stData.getColumnCount();
-            
-            DefaultTableModel model = (DefaultTableModel) TableBaiDoXe.getModel();
-            model.setRowCount(0);
-            
-            while(rs.next()){
-                Vector columnData = new Vector();
-                for (i=1; i<=q; i++){
-                    columnData.add(rs.getString("bienso"));
-                    columnData.add(rs.getString("masove"));
-                    columnData.add(rs.getString("loaixe"));
-                    columnData.add(rs.getString("tenxe"));
-                    columnData.add(rs.getString("mauxe"));
-                    columnData.add(rs.getString("ngayraben"));
-                    columnData.add(rs.getString("nayvaoben"));
-                }
-                model.addRow(columnData);
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     public MainForm() {
         initComponents();
+        jLabel3.setText(String.valueOf(jTable14.getRowCount()));
     }
 
     /**
@@ -189,9 +123,11 @@ public class MainForm extends javax.swing.JFrame {
         jButton57 = new javax.swing.JButton();
         jButton58 = new javax.swing.JButton();
         jButton59 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel51 = new javax.swing.JPanel();
         jScrollPane20 = new javax.swing.JScrollPane();
         jTable20 = new javax.swing.JTable();
@@ -730,28 +666,28 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(jPanel44Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel104)
-                            .addComponent(jLabel105)
-                            .addComponent(jLabel106))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNgayVaoBen, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNgayRaBen, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMauXe, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel44Layout.createSequentialGroup()
+                                .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel104)
+                                    .addComponent(jLabel105)
+                                    .addComponent(jLabel106))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNgayVaoBen, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNgayRaBen, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMauXe, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)))
                     .addGroup(jPanel44Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel44Layout.createSequentialGroup()
-                                .addComponent(txtTKtheoVe, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTktheoVe)
-                                .addGap(22, 22, 22)
-                                .addComponent(btnThemQuanLy)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnve_xe_Xoa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                                .addComponent(btnHienDS2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(txtTKtheoVe, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTktheoVe)
+                        .addGap(22, 22, 22)
+                        .addComponent(btnThemQuanLy)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnve_xe_Xoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(btnHienDS2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel44Layout.setVerticalGroup(
@@ -783,14 +719,10 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenXe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel103))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel44Layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel44Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 51, Short.MAX_VALUE)
+                .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -829,11 +761,44 @@ public class MainForm extends javax.swing.JFrame {
 
         jButton59.setText("Thay Đổi thông tin");
 
-        jLabel3.setText("Thông tin vé");
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin vé"));
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setText("Số vé chưa phát ra : ");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Tổng số vé :");
 
-        jLabel14.setText("Số vé chưa phát ra : ");
+        jLabel3.setText("jLabel3");
+
+        jLabel4.setText("jLabel4");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(86, 86, 86))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
         jPanel49.setLayout(jPanel49Layout);
@@ -842,36 +807,24 @@ public class MainForm extends javax.swing.JFrame {
             .addComponent(jScrollPane14)
             .addGroup(jPanel49Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton9)
-                .addGap(18, 18, 18)
-                .addComponent(jButton57, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jButton58)
-                .addGap(64, 64, 64)
-                .addComponent(jButton59)
-                .addContainerGap(123, Short.MAX_VALUE))
-            .addGroup(jPanel49Layout.createSequentialGroup()
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel49Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel49Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(154, 154, 154)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jButton9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton57, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton58)
+                        .addGap(64, 64, 64)
+                        .addComponent(jButton59))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanel49Layout.setVerticalGroup(
             jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel49Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton57, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -955,7 +908,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1877,7 +1830,7 @@ public class MainForm extends javax.swing.JFrame {
             pstm.setString(1,model.getValueAt(selectedRowIndex, 0).toString());
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(this, "Ban da xoa thanh cong");
-            GetNhanVienTable();
+           // GetNhanVienTable();
         } catch (ClassNotFoundException ex){
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -1900,12 +1853,12 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnHienDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHienDSActionPerformed
         // TODO add your handling code here:
-        GetNhanVienTable();
+        data.GetNhanVienTable(tableNhanVien_17);
     }//GEN-LAST:event_btnHienDSActionPerformed
 
     private void btnHienDS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHienDS2ActionPerformed
         // TODO add your handling code here:
-        GetVevaXeTable();
+        data.GetVevaXeTable(TableBaiDoXe);
     }//GEN-LAST:event_btnHienDS2ActionPerformed
 
     private void btnTktheoVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTktheoVeActionPerformed
@@ -2190,6 +2143,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel233;
     private javax.swing.JLabel jLabel234;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
@@ -2202,6 +2156,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
