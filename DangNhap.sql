@@ -54,6 +54,7 @@ create table QuanLyBaiXe(
 	ngayRaBai date null
 )
 go
+select qlx.bienSoXe,qlv.maVe,qlx.loaiXe,qlx.tenXe,qlx.mauXe,format(qlbx.ngayVaoBai,'dd-MM-yyyy') as ngayRaBai1,format(qlbx.ngayRaBai,'dd-MM-yyyy') as ngayVaoBai1 from QuanLyXe as qlx,QuanLyVe as qlv,QuanLyBaiXe as qlbx where qlbx.bienSoXe = qlx.bienSoXe and qlbx.maVe = qlv.maVe
 --Tạo table TroGiup
 create table TroGiup(
 	maTG varchar(10) not null primary key,
@@ -106,3 +107,8 @@ go
 insert into QuanLyBaiXe
 values ('BG001','K2309','VN000001','10/3/2002','2022/5/4'),
 	   ('BG002','K2311','VT000001','11/9/2003',null)
+go
+--Chèn dữ liệu vào bảng DiaChi
+insert into DiaChi
+values ('205131','Binh Hien','Hai Chau','Da Nang')
+go
