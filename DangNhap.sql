@@ -110,5 +110,8 @@ values ('BG001','K2309','VN000001','10/3/2002','2022/5/4'),
 go
 --Chèn dữ liệu vào bảng DiaChi
 insert into DiaChi
-values ('205131','Binh Hien','Hai Chau','Da Nang')
+values ('205131','Binh Hien','Hai Chau','Da Nang'),
+	   ('205123','Nam Duong','Hai Chau','Da Nang')
 go
+select NhanVien.maNV,NhanVien.tenNV,NhanVien.ngaysinh,NhanVien.gioitinh,NhanVien.chucVu,DiaChi.QuanHuyen,NhanVien.SDT,TaiKhoan.matKhau
+                from NhanVien,TaiKhoan,DiaChi where NhanVien.tenTK=TaiKhoan.tenTK and NhanVien.maNV=DiaChi.maNV	and NhanVien.maNV='205131'
