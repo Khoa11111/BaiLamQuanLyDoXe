@@ -5,6 +5,7 @@
  */
 package quanlydoxe;
 
+import MyDataBase.JDBCConnection;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +17,7 @@ import khungqlx.MainForm;
  */
 public class DangNhap extends javax.swing.JFrame {
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyDoXe;user=sa;password=maths2002";
+    String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyDoXe;user=sa;password=12345";
     Connection conn = null;
     ResultSet rs ;
     Statement st ;
@@ -238,6 +239,8 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void txtDangNhap_17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDangNhap_17ActionPerformed
         // TODO add your handling code here:
+        Connection conn = JDBCConnection.getJDBCConnect();
+        
     }//GEN-LAST:event_txtDangNhap_17ActionPerformed
 
     /**
