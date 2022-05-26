@@ -40,16 +40,6 @@ create table QuanLyXe(
 	ngayVaoBai date not null,
 	ngayRaBai date null
 )
-go
---Tạo table TroGiup
-create table TroGiup(
-	maTG varchar(10) not null primary key,
-	Ten varchar(50) not null,
-	Email varchar(30) not null,
-	SDT varchar(11) not null,
-	noiDung varchar(100) not null,
-)
-go
 --2/Chèn dữ liệu
 --Chèn dữ liệu vào bảng TaiKhoan
 set dateformat dmy
