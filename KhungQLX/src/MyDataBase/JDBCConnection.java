@@ -24,9 +24,7 @@ public class JDBCConnection {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return conn;

@@ -5,6 +5,7 @@
  */
 package quanlydoxe;
 
+import MyDataBase.JDBCConnection;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +51,7 @@ public class DangNhap extends javax.swing.JFrame {
         txtDangNhap_17 = new javax.swing.JTextField();
         pswMatKhau_17 = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
+        NhanVien_57 = new javax.swing.JRadioButton();
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -126,6 +128,8 @@ public class DangNhap extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconDOXE/iconDoXe_2.jpg"))); // NOI18N
 
+        NhanVien_57.setText("Tài Khoản NV");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -142,18 +146,19 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18))
+                        .addComponent(jLabel3))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addGap(35, 35, 35)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NhanVien_57)
+                            .addComponent(jLabel4))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDangNhap_17)
                     .addComponent(pswMatKhau_17, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +178,10 @@ public class DangNhap extends javax.swing.JFrame {
                                 .addGap(41, 41, 41)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
-                                    .addComponent(pswMatKhau_17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(pswMatKhau_17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(NhanVien_57)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
@@ -215,7 +223,11 @@ public class DangNhap extends javax.swing.JFrame {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url);
-            String sql = "select * from Account where userName=? and pass=?";
+            String sql;
+            if(NhanVien_57.isSelected())
+                sql = "select * from NhanVien where maNV=? and matkhauNV=?";
+            else
+                sql = "select * from TaiKhoan where tenTK=? and matKhau=?";
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, txtDangNhap_17.getText());
             pstm.setString(2, pswMatKhau_17.getText());
@@ -238,6 +250,8 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void txtDangNhap_17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDangNhap_17ActionPerformed
         // TODO add your handling code here:
+        Connection conn = JDBCConnection.getJDBCConnect();
+        
     }//GEN-LAST:event_txtDangNhap_17ActionPerformed
 
     /**
@@ -276,6 +290,7 @@ public class DangNhap extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton NhanVien_57;
     private javax.swing.JButton btnDangNhap_17;
     private javax.swing.JButton btnExit_17;
     private javax.swing.JLabel jLabel1;
